@@ -54,7 +54,7 @@ O script também imprime o mapeamento interno de classes (gerador_treino.class_i
 
 ---
 
-##Integração com ESP32
+## Integração com ESP32
 
 Este repositório assume que:
 
@@ -65,7 +65,7 @@ A implementação exata do firmware do ESP32 e o protocolo de comunicação fica
 
 ---
 
-##Créditos e licença
+## Créditos e licença
 
 Dataset: Garbage Classification — Mendeley Data (https://data.mendeley.com/datasets/n3gtgm9jxj/2)
 Modelo base: MobileNetV2 (pretrained ImageNet)
