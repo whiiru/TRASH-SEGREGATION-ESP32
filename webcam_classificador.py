@@ -18,15 +18,15 @@ import time
 import cv2
 import numpy as np
 import requests
-import tensorflow as tf
+import tensorflow as tf #Obs: Tensorflow está disponível para python 3.13
 
 # ===================== CONFIGURAÇÕES =====================
 INDICE_CAMERA = 0          # 0 = primeira câmera USB detectada; troque se tiver mais de uma
-MODELO_PATH = "melhor_modelo.keras"
+MODELO_PATH = "melhor_modelo.keras" # Modelo usado, deixe na mesma pasta do programa
 TAMANHO_IMAGEM = (224, 224)
 CLASSES = ["organico", "reciclavel"]  # ordem alfabética das pastas do treino
 
-ESP32_IP = "192.168.*.***"   # IP impresso no Monitor Serial do ESP32
+ESP32_IP = "192.168.*.***"   # IP impresso no Monitor Serial do ESP32 TROQUE AQUI 
 ESP32_URL = f"http://{ESP32_IP}/mover"
 
 CONFIANCA_MINIMA = 0.65     # abaixo disso, não move o servo (evita decisão errada)
@@ -39,14 +39,14 @@ modelo = tf.keras.models.load_model(MODELO_PATH)
 print("Modelo carregado.")
 
 
-def preprocessar(frame_bgr: np.ndarray) -> np.ndarray:
+def preprocessar(frame_bgr: np.ndarray) -> np.ndarray: # Processa a imagem lida, usa a biblioteca cv2
     frame_rgb = cv2.cvtColor(frame_bgr, cv2.COLOR_BGR2RGB)
     frame_redimensionado = cv2.resize(frame_rgb, TAMANHO_IMAGEM)
     array = frame_redimensionado.astype(np.float32) / 255.0
     return np.expand_dims(array, axis=0)
 
 
-def enviar_comando_servo(classe: str) -> bool:
+def enviar_comando_servo(classe: str) -> bool: #Envia o comando para o servidor
     try:
         resposta = requests.get(ESP32_URL, params={"classe": classe}, timeout=3)
         if resposta.status_code == 200:
@@ -60,7 +60,7 @@ def enviar_comando_servo(classe: str) -> bool:
 
 
 def main():
-    captura = cv2.VideoCapture(INDICE_CAMERA)
+    captura = cv2.VideoCapture(INDICE_CAMERA) #Abertura da camera
     if not captura.isOpened():
         print("Não foi possível abrir a câmera USB. Verifique o INDICE_CAMERA.")
         return
