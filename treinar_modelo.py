@@ -18,13 +18,8 @@ PASSO 1 — Organize seu dataset nesta estrutura de pastas:
 
 Se você for usar um dataset público como TrashNet ou o "Garbage
 Classification" do Kaggle (que vêm com classes tipo cardboard, glass,
-metal, paper, plastic, trash), você precisa REMAPEAR as pastas assim:
-
-    organico      <- cardboard, paper  (e orgânicos, se o dataset tiver)
-    reciclavel  <- glass, metal, plastic, trash
-
-Use o script `remapear_dataset.py` (abaixo, função auxiliar) ou apenas
-copie/mova as imagens manualmente para as duas pastas finais.
+metal, paper, plastic, trash), você precisa REMAPEAR as pastas em organico 
+e reciclavel
 
 Instalação:
     pip install tensorflow pillow numpy scikit-learn matplotlib
@@ -40,11 +35,11 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
 # ===================== CONFIGURAÇÕES =====================
-DATASET_DIR = r"C:\Users\bruno\OneDrive\Área de Trabalho\waste_dataset"          # pasta com subpastas organico/ e reciclavel/
+DATASET_DIR = r""          # Localização da pasta com subpastas organico/ e reciclavel/
 TAMANHO_IMAGEM = (224, 224)
 BATCH_SIZE = 32
 
-# Números de épocas são agora TETOS máximos — o EarlyStopping vai parar
+# Números de épocas são  TETOS máximos — o EarlyStopping vai parar
 # antes disso automaticamente assim que val_loss parar de melhorar.
 EPOCAS_CABECA = 20
 EPOCAS_FINETUNE = 20
